@@ -42,11 +42,12 @@
       "type": "enumeration",
       "enum": [
         "free",
-        "pegi3",
-        "pegi7",
-        "pegi12",
-        "pegi16",
-        "pegi18"
+        "br_0",
+        "br_10",
+        "br_12",
+        "br_14",
+        "br_16",
+        "br_18"
       ]
     },
     "cover": {
