@@ -165,7 +165,7 @@ async function createGames(products) {
             );
           }
 
-          await timeout(3000);
+          await timeout(15000);
 
           return game;
         }
