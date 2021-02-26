@@ -7,4 +7,10 @@ module.exports = ({ env }) => ({
       api_secret: env("CLOUDINARY_SECRET"),
     },
   },
+  graphql: {
+    amountLimit: 10000,
+    apolloServer: {
+      tracing: true,
+    },
+  },
 });
