@@ -26,7 +26,7 @@ module.exports = {
         { id: ctx.params.id }, 
         ctx.request.body
       )
-      return sanitizeEntity(entity, { model: strapi.models.wishlisth })
+      return sanitizeEntity(entity, { model: strapi.models.wishlist })
     } catch (error) {
       throw strapi.errors.unauthorized(err)
     }
