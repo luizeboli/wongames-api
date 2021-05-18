@@ -61,7 +61,7 @@ async function createEntityItem(entity, name) {
       log(chalk.cyan(`Creating '${entity}': '${name}'...`));
       return await strapi.services[entity].create({
         name,
-        slug: slugify(name, { lower: true }),
+        slug: slugify(name, { strict: true, lower: true }),
       });
     }
   } catch (e) {
