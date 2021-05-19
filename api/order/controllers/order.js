@@ -1,6 +1,7 @@
 'use strict';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { sanitizeEntity } = require('strapi-utils');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -41,5 +42,39 @@ module.exports = {
         error: error.raw.message,
       };
     }
+  },
+
+  create: async (ctx) => {
+    const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
+
+    const token = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx);
+    const user = await strapi.query('user', 'users-permissions').findOne({ id: token.id });
+
+    const cartGamesId = await strapi.config.functions.cart.getCartGamesId(cart);
+    const games = await strapi.config.functions.cart.getCartItems(cartGamesId);
+    const total_in_cents = await strapi.config.functions.cart.getTotalValue(games);
+
+    let paymentInfo;
+    if (total_in_cents) {
+      try {
+        paymentInfo = await stripe.paymentMethods.retrieve(paymentMethod);
+      } catch (error) {
+        ctx.response.status = 402;
+        return { error: error.message };
+      }
+    }
+
+    const entry = {
+      total_in_cents,
+      payment_intent_id: paymentIntentId,
+      card_brand: paymentInfo?.card?.brand,
+      card_last4: paymentInfo?.card?.last4,
+      games,
+      user,
+    };
+
+    const entity = await strapi.services.order.create(entry);
+
+    return sanitizeEntity(entity, { model: strapi.models.order });
   },
 };
