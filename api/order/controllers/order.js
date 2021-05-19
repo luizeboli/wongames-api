@@ -76,11 +76,13 @@ module.exports = {
 
     const entity = await strapi.services.order.create(entry);
 
-    await strapi.plugins.email.services.email.sendTemplatedEmail(
+    await strapi.plugins['email-designer'].services.email.sendTemplatedEmail(
       {
         to: user.email,
       },
-      orderTemplate,
+      {
+        templateId: 1,
+      },
       {
         user,
         payment: {
