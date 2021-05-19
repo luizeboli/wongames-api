@@ -9,7 +9,7 @@ const text = `
   Total: <%= payment.total %>
   Games:
   <% _.forEach(games, function(game) { %>
-    <%= game.name %> - Price: $<%= Number(game.price).toFixed(2)
+    <%= game.name %> - Price: $<%= Number(game.price).toFixed(2) %>
   <% }); %>
 `;
 
