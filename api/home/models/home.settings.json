@@ -2,11 +2,13 @@
   "kind": "singleType",
   "collectionName": "homes",
   "info": {
-    "name": "home"
+    "name": "home",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "newGames": {
