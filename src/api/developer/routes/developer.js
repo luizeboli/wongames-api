@@ -1,0 +1,34 @@
+module.exports = {
+  routes: [
+    {
+      method: "GET",
+      path: "/developers",
+      handler: "developer.find",
+      config: { policies: [] },
+    },
+    {
+      method: "GET",
+      path: "/developers/:id",
+      handler: "developer.findOne",
+      config: { policies: [] },
+    },
+    {
+      method: "POST",
+      path: "/developers",
+      handler: "developer.create",
+      config: { policies: [] },
+    },
+    {
+      method: "PUT",
+      path: "/developers/:id",
+      handler: "developer.update",
+      config: { policies: [] },
+    },
+    {
+      method: "DELETE",
+      path: "/developers/:id",
+      handler: "developer.delete",
+      config: { policies: [] },
+    },
+  ],
+};

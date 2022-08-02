@@ -1,0 +1,34 @@
+module.exports = {
+  routes: [
+    {
+      method: "GET",
+      path: "/wishlists",
+      handler: "wishlist.find",
+      config: { policies: [] },
+    },
+    {
+      method: "GET",
+      path: "/wishlists/:id",
+      handler: "wishlist.findOne",
+      config: { policies: [] },
+    },
+    {
+      method: "POST",
+      path: "/wishlists",
+      handler: "wishlist.create",
+      config: { policies: [] },
+    },
+    {
+      method: "PUT",
+      path: "/wishlists/:id",
+      handler: "wishlist.update",
+      config: { policies: [] },
+    },
+    {
+      method: "DELETE",
+      path: "/wishlists/:id",
+      handler: "wishlist.delete",
+      config: { policies: [] },
+    },
+  ],
+};

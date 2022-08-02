@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "recommendeds",
+  "info": {
+    "singularName": "recommended",
+    "pluralName": "recommendeds",
+    "displayName": "Recommended",
+    "name": "recommended"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "page.popular-games",
+      "required": true
+    }
+  }
+}

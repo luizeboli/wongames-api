@@ -1,0 +1,34 @@
+module.exports = {
+  routes: [
+    {
+      method: "GET",
+      path: "/banners",
+      handler: "banner.find",
+      config: { policies: [] },
+    },
+    {
+      method: "GET",
+      path: "/banners/:id",
+      handler: "banner.findOne",
+      config: { policies: [] },
+    },
+    {
+      method: "POST",
+      path: "/banners",
+      handler: "banner.create",
+      config: { policies: [] },
+    },
+    {
+      method: "PUT",
+      path: "/banners/:id",
+      handler: "banner.update",
+      config: { policies: [] },
+    },
+    {
+      method: "DELETE",
+      path: "/banners/:id",
+      handler: "banner.delete",
+      config: { policies: [] },
+    },
+  ],
+};

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "developers",
+  "info": {
+    "singularName": "developer",
+    "pluralName": "developers",
+    "displayName": "Developer",
+    "name": "developer"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true,
+      "private": false
+    },
+    "games": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::game.game",
+      "mappedBy": "developers"
+    }
+  }
+}

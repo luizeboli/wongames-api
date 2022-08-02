@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banners",
+  "info": {
+    "singularName": "banner",
+    "pluralName": "banners",
+    "displayName": "Banner",
+    "name": "banner"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false,
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true,
+      "maxLength": 140
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "page.button"
+    },
+    "ribbon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "page.ribbon"
+    }
+  }
+}

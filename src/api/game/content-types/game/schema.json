@@ -1,0 +1,97 @@
+{
+  "kind": "collectionType",
+  "collectionName": "games",
+  "info": {
+    "singularName": "game",
+    "pluralName": "games",
+    "displayName": "Game",
+    "name": "game"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "required": true,
+      "targetField": "name"
+    },
+    "short_description": {
+      "type": "text",
+      "maxLength": 160,
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "price": {
+      "type": "decimal",
+      "unique": false,
+      "required": true,
+      "default": 0
+    },
+    "release_date": {
+      "type": "date",
+      "required": false
+    },
+    "rating": {
+      "type": "enumeration",
+      "enum": [
+        "free",
+        "br_0",
+        "br_10",
+        "br_12",
+        "br_14",
+        "br_16",
+        "br_18"
+      ]
+    },
+    "cover": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false,
+      "required": false
+    },
+    "gallery": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": true,
+      "required": false
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "games"
+    },
+    "developers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::developer.developer",
+      "inversedBy": "games"
+    },
+    "platforms": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::platform.platform",
+      "inversedBy": "games"
+    },
+    "publisher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::publisher.publisher",
+      "inversedBy": "games"
+    }
+  }
+}
