@@ -1,31 +1,18 @@
-import pluginPkg from "../../package.json";
-import Wysiwyg from "./components/Wysiwyg";
-import pluginId from "./pluginId";
+import pluginPkg from '../../package.json';
+import Wysiwyg from './components/Wysiwyg';
+import pluginId from './pluginId';
 
-export default (strapi) => {
-  const pluginDescription =
-    pluginPkg.strapi.description || pluginPkg.description;
+const name = pluginPkg.strapi.name;
 
-  const plugin = {
-    blockerComponent: null,
-    blockerComponentProps: {},
-    description: pluginDescription,
-    icon: pluginPkg.strapi.icon,
-    id: pluginId,
-    initializer: () => null,
-    injectedComponents: [],
-    isReady: true,
-    isRequired: pluginPkg.strapi.required || false,
-    leftMenuLinks: [],
-    leftMenuSections: [],
-    mainComponent: null,
-    name: pluginPkg.strapi.name,
-    preventComponentRendering: false,
-    settings: null,
-    trads: {},
-  };
+export default {
+  register(app) {
+    app.addFields({ type: 'wysiwyg', Component: Wysiwyg });
 
-  strapi.registerField({ type: "wysiwyg", Component: Wysiwyg });
-
-  return strapi.registerPlugin(plugin);
+    app.registerPlugin({
+      id: pluginId,
+      isReady: true,
+      name,
+    });
+  },
+  bootstrap() {},
 };

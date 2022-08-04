@@ -36,6 +36,7 @@
     "jsdom": "^16.4.0",
     "knex": "<0.20.0",
     "pg": "latest",
+    "pg-connection-string": "^2.5.0",
     "slugify": "^1.4.5",
     "strapi-plugin-email-designer": "^2.1.1",
     "strapi-plugin-entity-relationship-chart": "^4.1.0",

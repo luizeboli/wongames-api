@@ -1,55 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useStrapi, prefixFileUrlWithBackendUrl } from "strapi-helper-plugin";
-import PropTypes from "prop-types";
+import React from 'react';
+import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin';
+import PropTypes from 'prop-types';
 
 const MediaLib = ({ isOpen, onChange, onToggle }) => {
-  const {
-    strapi: {
-      componentApi: { getComponent },
-    },
-  } = useStrapi();
-  const [data, setData] = useState(null);
-  const [isDisplayed, setIsDisplayed] = useState(false);
+  const { components } = useLibrary();
+  const MediaLibraryDialog = components['media-library'];
 
-  useEffect(() => {
-    if (isOpen) {
-      setIsDisplayed(true);
-    }
-  }, [isOpen]);
+  const handleSelectAssets = (files) => {
+    const formattedFiles = files.map((f) => ({
+      alt: f.alternativeText || f.name,
+      url: prefixFileUrlWithBackendUrl(f.url),
+      mime: f.mime,
+    }));
 
-  const Component = getComponent("media-library").Component;
-
-  const handleInputChange = (data) => {
-    if (data) {
-      const { url } = data;
-
-      setData({ ...data, url: prefixFileUrlWithBackendUrl(url) });
-    }
+    onChange(formattedFiles);
   };
 
-  const handleClosed = () => {
-    if (data) {
-      onChange(data);
-    }
-
-    setData(null);
-    setIsDisplayed(false);
-  };
-
-  if (Component && isDisplayed) {
-    return (
-      <Component
-        allowedTypes={["images", "videos", "files"]}
-        isOpen={isOpen}
-        multiple={false}
-        onClosed={handleClosed}
-        onInputMediaChange={handleInputChange}
-        onToggle={onToggle}
-      />
-    );
+  if (!isOpen) {
+    return null;
   }
 
-  return null;
+  return <MediaLibraryDialog onClose={onToggle} onSelectAssets={handleSelectAssets} />;
 };
 
 MediaLib.defaultProps = {

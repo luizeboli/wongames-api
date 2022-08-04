@@ -1,15 +1,8 @@
-'use strict';
+const { createCoreController } = require('@strapi/strapi').factories;
 
-const { sanitizeEntity } = require('strapi-utils');
-
-/**
- * Read the documentation (https://strapi.io/documentation/v3.x/concepts/controllers.html#core-controllers)
- * to customize this controller
- */
-
-module.exports = {
+module.exports = createCoreController('api::wishlist.wishlist', {
   async create(ctx) {
-    const userToken = await strapi.plugin('users-permissions').services.jwt.getToken(ctx);
+    const userToken = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx);
 
     const body = {
       ...ctx.request.body,
@@ -17,15 +10,15 @@ module.exports = {
     };
 
     const entity = await strapi.services.wishlist.create(body);
-    return sanitizeEntity(entity, { model: strapi.models.wishlist });
+    return await this.sanitizeOutput(entity, ctx);
   },
 
   async update(ctx) {
     try {
       const entity = await strapi.services.wishlist.update({ id: ctx.params.id }, ctx.request.body);
-      return sanitizeEntity(entity, { model: strapi.models.wishlist });
+      return await this.sanitizeOutput(entity, ctx);
     } catch (error) {
-      throw strapi.errors.unauthorized(err);
+      throw strapi.errors.unauthorized(error);
     }
   },
-};
+});

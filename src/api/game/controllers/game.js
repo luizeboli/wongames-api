@@ -1,22 +1,17 @@
-"use strict";
+const { createCoreController } = require('@strapi/strapi').factories;
 
-/**
- * Read the documentation (https://strapi.io/documentation/v3.x/concepts/controllers.html#core-controllers)
- * to customize this controller
- */
-
-module.exports = {
-  populate: async (ctx) => {
-    console.log("Starting data mining process...");
+module.exports = createCoreController('api::game.game', ({ strapi }) => ({
+  async populate(ctx) {
+    console.log('Starting data mining process...');
 
     const query = {
       page: 1,
-      sort: "popularity",
+      sort: 'popularity',
       ...ctx.query,
     };
 
     await strapi.services.game.populate(query);
 
-    ctx.send("Finished data mining process...");
+    ctx.send('Finished data mining process...');
   },
-};
+}));
