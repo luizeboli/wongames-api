@@ -10,7 +10,7 @@ module.exports = createCoreController('api::game.game', ({ strapi }) => ({
       ...ctx.query,
     };
 
-    await strapi.services.game.populate(query);
+    await strapi.service('api::game.game').populate(query);
 
     ctx.send('Finished data mining process...');
   },
