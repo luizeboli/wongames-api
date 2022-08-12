@@ -2,7 +2,9 @@
   "collectionName": "components_page_highlights",
   "info": {
     "name": "highlight",
-    "icon": "star"
+    "icon": "star",
+    "displayName": "Highlight",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -15,22 +17,20 @@
       "required": true
     },
     "background": {
-      "model": "file",
-      "via": "related",
       "allowedTypes": [
         "images"
       ],
-      "plugin": "upload",
+      "type": "media",
+      "multiple": false,
       "required": true
     },
     "floatImage": {
-      "model": "file",
-      "via": "related",
       "allowedTypes": [
         "images"
       ],
-      "plugin": "upload",
-      "required": false
+      "type": "media",
+      "multiple": false,
+      "required": true
     },
     "buttonLabel": {
       "type": "string",
