@@ -2,7 +2,9 @@
   "collectionName": "components_page_popular_games",
   "info": {
     "name": "popularGames",
-    "icon": "star-of-life"
+    "icon": "star-of-life",
+    "displayName": "Popular Games",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -16,7 +18,9 @@
       "component": "page.highlight"
     },
     "games": {
-      "collection": "game"
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::game.game"
     }
   }
 }

@@ -3,6 +3,7 @@
   "info": {
     "name": "section",
     "icon": "align-justify",
+    "displayName": "Section",
     "description": ""
   },
   "options": {},
@@ -16,7 +17,9 @@
       "component": "page.highlight"
     },
     "games": {
-      "collection": "game"
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::game.game"
     }
   }
 }

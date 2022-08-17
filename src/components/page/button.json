@@ -2,7 +2,9 @@
   "collectionName": "components_page_buttons",
   "info": {
     "name": "button",
-    "icon": "link"
+    "icon": "link",
+    "displayName": "Button",
+    "description": ""
   },
   "options": {},
   "attributes": {

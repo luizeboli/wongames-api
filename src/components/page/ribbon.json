@@ -2,7 +2,9 @@
   "collectionName": "components_page_ribbons",
   "info": {
     "name": "ribbon",
-    "icon": "ribbon"
+    "icon": "ribbon",
+    "displayName": "Ribbon",
+    "description": ""
   },
   "options": {},
   "attributes": {

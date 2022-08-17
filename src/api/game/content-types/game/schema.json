@@ -5,11 +5,13 @@
     "singularName": "game",
     "pluralName": "games",
     "displayName": "Game",
-    "name": "game"
+    "name": "game",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -55,19 +57,19 @@
     },
     "cover": {
       "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
-      "multiple": false,
-      "required": false
+      ]
     },
     "gallery": {
       "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "multiple": true,
-      "required": false
+      ]
     },
     "categories": {
       "type": "relation",

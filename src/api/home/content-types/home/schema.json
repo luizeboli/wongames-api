@@ -5,7 +5,8 @@
     "singularName": "home",
     "pluralName": "homes",
     "displayName": "Home",
-    "name": "home"
+    "name": "home",
+    "description": ""
   },
   "options": {
     "increments": true,
