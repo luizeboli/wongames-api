@@ -5,11 +5,13 @@
     "singularName": "wishlist",
     "pluralName": "wishlists",
     "displayName": "Wishlist",
-    "name": "wishlist"
+    "name": "wishlist",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "attributes": {
     "user": {
