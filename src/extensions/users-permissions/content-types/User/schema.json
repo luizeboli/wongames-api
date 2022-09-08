@@ -53,7 +53,8 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.role",
-      "inversedBy": "users"
+      "inversedBy": "users",
+      "required": true
     },
     "confirmationToken": {
       "type": "string",

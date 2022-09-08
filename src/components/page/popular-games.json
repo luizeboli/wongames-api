@@ -20,7 +20,8 @@
     "games": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::game.game"
+      "target": "api::game.game",
+      "required": true
     }
   }
 }

@@ -16,12 +16,14 @@
     "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "required": true
     },
     "games": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::game.game"
+      "target": "api::game.game",
+      "required": true
     },
     "total_in_cents": {
       "type": "biginteger",

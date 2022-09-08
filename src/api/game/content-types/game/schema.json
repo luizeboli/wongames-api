@@ -75,25 +75,29 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::category.category",
-      "inversedBy": "games"
+      "inversedBy": "games",
+      "required": true
     },
     "developers": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::developer.developer",
-      "inversedBy": "games"
+      "inversedBy": "games",
+      "required": true
     },
     "platforms": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::platform.platform",
-      "inversedBy": "games"
+      "inversedBy": "games",
+      "required": true
     },
     "publisher": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::publisher.publisher",
-      "inversedBy": "games"
+      "inversedBy": "games",
+      "required": true
     }
   }
 }
