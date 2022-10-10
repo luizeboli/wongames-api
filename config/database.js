@@ -1,7 +1,7 @@
 const parse = require('pg-connection-string').parse;
 const config = parse(process.env.DATABASE_URL);
 
-module.exports = () => ({
+module.exports = ({ env }) => ({
   connection: {
     client: 'postgres',
     connection: {
@@ -10,9 +10,7 @@ module.exports = () => ({
       database: config.database,
       user: config.user,
       password: config.password,
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      ssl: env('DATABASE_SELF_SSL', false),
       pool: {
         min: 1,
         max: 5,
