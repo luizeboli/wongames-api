@@ -40,23 +40,20 @@ module.exports = createCoreController('api::order.order', {
   async create(ctx) {
     const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
 
-    const token = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx);
-    const user = await strapi.query('user', 'users-permissions').findOne({ id: token.id });
-
-    const cartGamesId = await strapi.config.functions.cart.getCartGamesId(cart);
-    const games = await strapi.config.functions.cart.getCartItems(cartGamesId);
-    const total_in_cents = await strapi.config.functions.cart.getTotalValue(games);
+    const cartGamesId = await await strapi.service('api::order.order').getCartGamesId(cart);
+    const games = await await strapi.service('api::order.order').getCartItems(cartGamesId);
+    const total_in_cents = await await strapi.service('api::order.order').getTotalValue(games);
 
     let paymentInfo;
     if (total_in_cents) {
       try {
         paymentInfo = await stripe.paymentMethods.retrieve(paymentMethod);
       } catch (error) {
-        ctx.response.status = 402;
-        return { error: error.message };
+        return ctx.paymentRequired({ error: error.message });
       }
     }
 
+    const user = ctx.state.user;
     const entry = {
       total_in_cents,
       payment_intent_id: paymentIntentId,
@@ -66,23 +63,32 @@ module.exports = createCoreController('api::order.order', {
       user,
     };
 
-    const entity = await strapi.services.order.create(entry);
-
-    await strapi.plugins['email-designer'].services.email.send({
-      templateId: 1,
-      to: user.email,
-      from: 'noreply@wongames.com',
-      replyTo: 'noreply@wongames.com',
-      data: {
-        user,
-        games,
-        payment: {
-          total: `$ ${total_in_cents / 100}`,
-          card_brand: entry.card_brand,
-          card_last4: entry.card_last4,
-        },
-      },
+    const entity = await strapi.entityService.create('api::order.order', {
+      data: entry,
     });
+
+    await strapi
+      .plugin('email-designer')
+      .service('email')
+      .sendTemplatedEmail(
+        {
+          to: user.email,
+          from: 'noreply@wongames.com',
+          replyTo: 'noreply@wongames.com',
+        },
+        {
+          templateReferenceId: 1,
+        },
+        {
+          user,
+          games,
+          payment: {
+            total: `$ ${total_in_cents / 100}`,
+            card_brand: entry.card_brand,
+            card_last4: entry.card_last4,
+          },
+        },
+      );
 
     return await this.sanitizeOutput(entity, ctx);
   },

@@ -6,6 +6,8 @@ module.exports = () => [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
+          'script-src': ["'self'", 'editor.unlayer.com'],
+          'frame-src': ["'self'", 'editor.unlayer.com'],
           'connect-src': ["'self'", 'https:'],
           'img-src': [
             "'self'",
@@ -14,7 +16,10 @@ module.exports = () => [
             'res.cloudinary.com', // cloudinary images
             'lh3.googleusercontent.com', // google avatars
             'platform-lookaside.fbsbx.com', // facebook avatars
-            'dl.airtable.com', // strapi marketplace
+            'dl.airtable.com', // strapi marketplace,
+            'cdn.jsdelivr.net',
+            'strapi.io',
+            's3.amazonaws.com',
           ],
           'media-src': [
             "'self'",
