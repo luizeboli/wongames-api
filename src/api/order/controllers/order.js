@@ -5,9 +5,9 @@ module.exports = createCoreController('api::order.order', {
   createPaymentIntent: async (ctx) => {
     const { cart } = ctx.request.body;
 
-    const cartGamesId = await strapi.config.functions.cart.getCartGamesId(cart);
+    const cartGamesId = await strapi.service('api::order.order').getCartGamesId(cart);
 
-    const games = await strapi.config.functions.cart.getCartItems(cartGamesId);
+    const games = await strapi.service('api::order.order').getCartItems(cartGamesId);
 
     if (!games.length) {
       ctx.response.status = 404;
@@ -16,7 +16,7 @@ module.exports = createCoreController('api::order.order', {
       };
     }
 
-    const total = await strapi.config.functions.cart.getTotalValue(games);
+    const total = await strapi.service('api::order.order').getTotalValue(games);
 
     if (!total) {
       return { freeGames: true };
