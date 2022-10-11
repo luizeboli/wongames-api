@@ -23,6 +23,20 @@ module.exports = {
                 });
               },
             });
+
+            t.field('orders', {
+              type: 'OrderEntityResponseCollection',
+              resolve: async (root, args) => {
+                const userData = await strapi.entityService.findMany('api::order.order', {
+                  filters: { user: root.id },
+                });
+
+                return toEntityResponseCollection(userData ?? [], {
+                  args,
+                  resourceUID: 'api::order.order',
+                });
+              },
+            });
           },
         }),
       ],
