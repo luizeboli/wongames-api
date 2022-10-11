@@ -68,7 +68,6 @@ module.exports = {
 
       resolversConfig: {
         'Mutation.updateWishlist': { policies: ['global::is-same-user', 'global::is-owner'] },
-        'Mutation.createWishlist': { policies: ['global::is-same-user', 'global::is-owner'] },
       },
     }));
   },

@@ -8,10 +8,6 @@ const resourcesMap = {
 module.exports = async (policyContext, config, { strapi }) => {
   const currentUser = policyContext.state.user;
 
-  // If user is creating a new item it's already covered by 'is-same-user' policy
-  const isCreating = policyContext.info.fieldName.startsWith('create');
-  if (isCreating) return true;
-
   const contentTypeResource = resourcesMap[policyContext.info.fieldName];
   if (!contentTypeResource) {
     strapi.log.error(`Could not find content type for operation ${policyContext.info.fieldName}`);
