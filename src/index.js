@@ -3,7 +3,12 @@
 module.exports = {
   register({ strapi }) {
     const extensionService = strapi.service('plugin::graphql.extension');
-    const { toEntityResponseCollection } = strapi.plugin('graphql').service('format').returnTypes;
+    const { toEntityResponseCollection, toEntityResponse } = strapi.plugin('graphql').service('format').returnTypes;
+
+    const middleware = (resourceUID) => async (next, parent, args) => {
+      const entity = await strapi.entityService.create(resourceUID, args);
+      return toEntityResponse(entity, { args, resourceUID });
+    };
 
     extensionService.use(({ nexus }) => ({
       types: [
@@ -42,9 +47,15 @@ module.exports = {
       ],
 
       resolversConfig: {
-        'Mutation.createWishlist': { policies: ['global::is-same-user'] },
+        'Mutation.createWishlist': {
+          policies: ['global::is-same-user'],
+          middlewares: [middleware('api::wishlist.wishlist')],
+        },
         'Mutation.updateWishlist': { policies: ['global::is-same-user', 'global::is-owner'] },
-        'Mutation.createOrder': { policies: ['global::is-same-user'] },
+        'Mutation.createOrder': {
+          policies: ['global::is-same-user'],
+          middlewares: [middleware('api::order.order')],
+        },
         'Mutation.updateOrder': { policies: ['global::is-same-user', 'global::is-owner'] },
       },
     }));
