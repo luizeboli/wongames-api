@@ -22,6 +22,7 @@ module.exports = ({ env }) => ({
       amountLimit: 10000,
       apolloServer: {
         tracing: true,
+        cache: 'bounded',
       },
     },
   },
