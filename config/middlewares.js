@@ -35,7 +35,6 @@ module.exports = () => [
       },
     },
   },
-  'strapi::cors',
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
